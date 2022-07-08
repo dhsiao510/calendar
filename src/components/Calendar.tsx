@@ -2,18 +2,18 @@ import React, { useState } from "react";
 
 const Calendar = () => {
     const weekdays: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-    const months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    const months: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     const longMonths: string[] = ['January', 'March', 'May', 'July', 'August', 'October', 'December']
     
     let today: any = new Date();
-    today = today.toString().split(' ').slice(2,4).reverse().join(' ');
-    const currentMonth: string = months[today.split(' ')[1] - 1];
-    const firstOfMonthIdx: number = new Date(today).getDay();
-    console.log(firstOfMonthIdx)
+    let monthAndYear = today.toString().split(' ').slice(1,4)
+    monthAndYear.splice(1, 1)
+    monthAndYear = monthAndYear.reverse().join(' ');
+    const currentMonth: string = monthAndYear.split(' ')[1];
+    const firstOfMonthIdx: number = new Date(monthAndYear).getDay();
     const calGrids = Array(42).fill(null);
+    //add logic for Feb
     const numberOfDays: number = longMonths.indexOf(currentMonth) > -1 ? 31:30;
-
-
 
     const renderHeader = (array:Array<string>) => {
         return array.map((day:string, key) => <div key={key} className="cal-header">{day}</div>)
