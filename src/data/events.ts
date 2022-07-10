@@ -27,8 +27,8 @@ export const mockEvents: Event[] = [
     }, 
     {
         name: "event5", 
-        date: "Jun 19 2022",
-        description: "45th birthday",
+        date: "Feb 21 2022",
+        description: "30th birthday",
         type: 'birthday'
     }
 ]
