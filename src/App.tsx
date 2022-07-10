@@ -5,6 +5,7 @@ import { Event } from "./types";
 import { mockEvents } from "./data/events";
 import Calendar from './components/Calendar';
 import EventDetail from './components/EventDetails';
+import { render } from '@testing-library/react';
 
 function App() {
   const months: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -12,7 +13,8 @@ function App() {
   const [ today, setToday ] = useState(null) as any;
   const [ selectMonth, setSelectMonth ] = useState(null) as any;
   const [ selectYear, setSelectYear ] = useState(null) as any;
-  const [ showDetail, setShowDetail] = useState<boolean>(true);
+  const [ showDetail, setShowDetail] = useState<boolean>(false);
+  const [ selectEvent, setSelectEvent] = useState(null) as any;
   //save all events to useRef - type issue - using useState for now
   const [ events, setEvents ] = useState<Event[]>(() => mockEvents);
   const [ currentMonthEvents, setCurrentMonthEvents ] = useState([]) as any;
@@ -32,6 +34,7 @@ function App() {
       if(splitted[0] === sMonth && splitted[2] === sYear) {
         convertEvents[splitted[1]] = {
           name: event.name,
+          date: event.date,
           description: event.description,
           type: event.type
         }
@@ -39,16 +42,26 @@ function App() {
     })
 
     setCurrentMonthEvents(convertEvents);
-    
+
     setSameMonth(isSameMonth(new Date(), new Date(selectDay)))
 
   }, [selectDay])
 
+  const renderEventDetail = (event: any) => {
+    if(currentMonthEvents[event.target.outerText]) {
+      setShowDetail(true);
+      setSelectEvent(currentMonthEvents[event.target.outerText])
+    } else {
+      setShowDetail(false);
+      setSelectEvent(null);
+    }
+  }
+
   return (
     <div className="App">
       <button style={{display:"none"}} onClick={()=> setSelectDay(format(new Date("02/21/2022"), "MM/dd/yyyy"))}>change Month</button>
-      <Calendar selectDay={selectDay} sameMonth={sameMonth} currentMonthEvents={currentMonthEvents} />
-      { showDetail ? <EventDetail />: <></>}
+      <Calendar selectDay={selectDay} sameMonth={sameMonth} currentMonthEvents={currentMonthEvents} renderEventDetail={renderEventDetail} />
+      { showDetail ? <EventDetail selectEvent={selectEvent}/>: <></>}
     </div>
   );
 }
