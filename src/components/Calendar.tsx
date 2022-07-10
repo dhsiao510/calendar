@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { format, getDay, getMonth, startOfMonth,lastDayOfMonth, isSameMonth } from "date-fns"
 import { Event } from "../types";
 
-const Calendar = ({selectDay, sameMonth}: any) => {
+const Calendar = ({selectDay, sameMonth, currentMonthEvents}: any) => {
     const calGrids = Array(42).fill(null);
     const weekdays: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     const months: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -28,23 +28,23 @@ const Calendar = ({selectDay, sameMonth}: any) => {
         return array.map((day: any, key:any) => {
             if(key >= firstOfMonthIdx && key < (firstOfMonthIdx + monthLength)) {
                 if(sameMonth && (today + firstOfMonthIdx - 1) === key) {
-                    return <div key={key} className="cal-cel-selected" onClick={() =>{console.log(key)}}>{key - firstOfMonthIdx + 1} </div>
+                    return <div key={key} className="cal-cel-days" onClick={() =>{console.log(key)}}>
+                        <div className="current">{key - firstOfMonthIdx + 1}</div>
+                        { currentMonthEvents[ key - firstOfMonthIdx + 1] ? <div className="event">{currentMonthEvents[key - firstOfMonthIdx + 1].name}</div>:<></>}
+                        <div></div>
+                    </div>
                 } else {
-                    return <div key={key} className="cal-cel-days" onClick={() =>{console.log(key)}}>{key - firstOfMonthIdx + 1} </div>
+                    return <div key={key} className="cal-cel-days" onClick={() =>{console.log(key)}}>
+                        <div>{key - firstOfMonthIdx + 1} </div>
+                        { currentMonthEvents[ key - firstOfMonthIdx + 1] ? <div className="event">{currentMonthEvents[key - firstOfMonthIdx + 1].name}</div>:<></>}
+                        </div>
                 }
             } else {
                 return <div key={key} className="cal-cel"></div>
             }
         }
     )}
-/*
-    const selectDate = () => {
-        const selectDate = 
-        const selectMonth = 
-        const selectYear = 
-    }
 
-*/
     return (
         <div className="cal-wrapper">
             <h1>{selectMonth}</h1>
