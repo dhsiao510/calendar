@@ -18,7 +18,7 @@ const Calendar = ({events}: any) => {
     const calGrids = Array(42).fill(null);
     const weekdays: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const [ selectDay, setSelectDay ]= useState(() => initialSelectDayFormat()) as any;
-    const [ firstOfMonthIdx, setFirstOfMonthIdx] = useState<null|number>(null);
+    const [ firstOfMonthIdx, setFirstOfMonthIdx] = useState(null) as any;
     const [ monthLength, setMonthLength ] = useState<null|number>(null);
     const [ sameMonth, setSameMonth] = useState<boolean>(true); 
     const [ selectEvent, setSelectEvent] = useState(null) as any;
@@ -27,20 +27,18 @@ const Calendar = ({events}: any) => {
     const [ currentMonthEvents, setCurrentMonthEvents ] = useState([]) as any;
 
     useEffect(() => { 
-        setFirstOfMonthIdx(getDay(startOfMonth(new Date(`${selectDay.month}/${selectDay.day}/${selectDay.year}`))));
+        setFirstOfMonthIdx(getDay(startOfMonth(new Date())));
         setCurrentMonthEvents(currentMonthsEventsToDayMap(allEvents.current, selectDay.month, selectDay.year));
-        setSameMonth(isSameMonth(new Date(), new Date(`${selectDay.month}/${selectDay.day}/${selectDay.year}`)))
-        const monthEnd = lastDayOfMonth(new Date(`${selectDay.month}/${selectDay.day}/${selectDay.year}`)).toString();
+        setSameMonth(isSameMonth(new Date(), new Date()))
+        const monthEnd = lastDayOfMonth(new Date()).toString();
         setMonthLength(Number(monthEnd.split(' ')[2]));
-        setToday(Number(format(new Date(), "dd")))
-    
+        setToday(Number(format(new Date(), "dd")))  
       }, [selectDay])
     
     const renderHeader = (array:Array<string>) => {
         return array.map((day:string, key) => <div key={key} className="cal-header">{day}</div>)
     }
     const renderGrid = (array: any) => {
-        if(firstOfMonthIdx !== null && monthLength) {
             return array.map((day: any, key:any) => {
                 if(key >= firstOfMonthIdx && key < (firstOfMonthIdx + monthLength)) {
                     return (
@@ -52,7 +50,7 @@ const Calendar = ({events}: any) => {
                     return <div role="cell" key={key} className="cal-cel"></div>
                 }
             })
-        }
+        
     }
 
     const renderEventDetail = (index: number) => {
