@@ -2,11 +2,11 @@ const EventDetail = ({selectEvent}: any) => {
 
     return (
         <div className="event-detail">
-            <h3>Event Detail</h3>
-            <div>Event Name: {selectEvent.name}</div>
-            <div>Event Date: {selectEvent.date}</div>
-            <div>Event Description: {selectEvent.description}</div>
-            <div>Event Type: {selectEvent.type}</div>
+            <h2>Event Detail</h2>
+            <div><b>Event Name: </b>{selectEvent.name}</div>
+            <div><b>Event Date: </b>{selectEvent.date}</div>
+            <div><b>Event Description: </b>{selectEvent.description}</div>
+            <div><b>Event Type: </b>{selectEvent.type}</div>
         </div>
     )
 }
