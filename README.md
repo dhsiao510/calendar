@@ -1,46 +1,28 @@
-# Getting Started with Create React App
+# Read Me
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# To Run the App
 
-## Available Scripts
+1. First time please cd into the directory and run `npm install`
+2. Upon completion, please run `npm run start`. The Calendar should be able opened on browser [http://localhost:3000]
+3. Per requirement, the Calendar should render the current month by default
+4. The required visual indication of the current date would have a red background
+5. A day with an event would have the event name shown with an orange background
+6. Clicking on a day that has an event would open the EventDetail component on the right side. Selecting a day with no event would close it
 
-In the project directory, you can run:
+# Thought Process:
 
-### `npm start`
+After understanding the prompt and requirements, I implemented the MVP version with only the native Javascript Date prototype methods.
+And to make the Calendar application more applicable/reuseable, I decided to keep all logics and states within the Calendar component itself.
+The App component only passes Events to Calendar through prop.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Thinking about potential expansion on features, I refactored and incorporated the Javascript Date-fns library. It provides cleaner solutions to deal with complications like calculating the length of February of a specific year; Especially if we later want to account for time of day. Date-fns has functions can help us handle users in different timezones and events spanning multiple days.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# To Dos:
+
+Unit testing - test render of the Calendar, start day of the month, length of the month, days with an event
+UI - the current CSS is only focused on accurately displaying the Calendar, even when screen size is being changed. A lot of visual improvemnts can be applied
+Clean up - replace "any" type with actual type/custom types
+
+Thank you for taking the time and giving me the opportunity to learn through building this exercise!
 
 ### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

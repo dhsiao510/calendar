@@ -75,14 +75,14 @@ const Calendar = ({events}: any) => {
         setSelectDay(initialSelectDayFormat(format(add(new Date(`${selectDay.month}/${selectDay.day}/${selectDay.year}`), {months:1}), "MMM/dd/yyyy")))
         setSelectEvent(null);
     }
-
+    
     return (
         <div className="component-wrapper">
             <div className="cal-wrapper">
                 <div className="header">
-                    <button style={{height: "25%"}} onClick={() => prevMonth()}>{'<'}</button>
+                    <button style={{display:"none", height: "25%"}} onClick={() => prevMonth()}>{'<'}</button>
                     <h1>{selectDay.month} {selectDay.year}</h1>
-                    <button style={{height: "25%"}} onClick={() => nextMonth()}>{'>'}</button>
+                    <button style={{display:"none", height: "25%"}} onClick={() => nextMonth()}>{'>'}</button>
                 </div>
                 <div className="cal-table">
                     {renderHeader(weekdays)}
