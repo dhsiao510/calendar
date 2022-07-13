@@ -4,13 +4,13 @@ import currentMonthsEventsToDayMap from "../utils/filterEventsForCurrentMonth";
 import EventDetail from "./EventDetails";
 import { Event } from "../types";
 
-const initialSelectDayFormat = (stringDate?: any) => {
+const initialSelectDayFormat = (stringDate?: string) => {
     stringDate = stringDate ? stringDate: format(new Date(), "MMM/dd/yyyy");
-    stringDate = stringDate.split('/');
+    const arrDate = stringDate.split('/');
     return {
-        month: stringDate[0],
-        day: stringDate[1],
-        year: stringDate[2]
+        month: arrDate[0],
+        day: arrDate[1],
+        year: arrDate[2]
     }
 }
 
@@ -39,19 +39,18 @@ const Calendar = ({events}: any) => {
     const renderHeader = (array:Array<string>) => {
         return array.map((day:string, key) => <div key={key} className="cal-header">{day}</div>)
     }
-
     const renderGrid = (array: any) => {
         if(firstOfMonthIdx !== null && monthLength) {
             return array.map((day: any, key:any) => {
                 if(key >= firstOfMonthIdx && key < (firstOfMonthIdx + monthLength)) {
                     return (
-                    <div key={key} className="cal-cel-days" onClick={() => renderEventDetail(key)}>
-                        <div className={sameMonth && (today + firstOfMonthIdx - 1) === key ? "current": ""}>{key - firstOfMonthIdx + 1}</div>
+                    <div role="cell" key={key} className="cal-cel-days" onClick={() => renderEventDetail(key)}>
+                        <div role="cell" className={sameMonth && (today + firstOfMonthIdx - 1) === key ? "current": ""}>{key - firstOfMonthIdx + 1}</div>
                         { currentMonthEvents[ key - firstOfMonthIdx + 1] ? <div className="event">{currentMonthEvents[key - firstOfMonthIdx + 1].name}</div>:<></>}
                     </div>)
                 } else if(key > 34 && (firstOfMonthIdx + monthLength) < 36){
                 } else {
-                    return <div key={key} className="cal-cel"></div>
+                    return <div role="cell" key={key} className="cal-cel"></div>
                 }
             })
         }
