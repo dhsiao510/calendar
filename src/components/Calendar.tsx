@@ -48,7 +48,6 @@ const Calendar = ({events}: any) => {
                         <div role="cell" className={sameMonth && (today + firstOfMonthIdx - 1) === key ? "current": ""}>{key - firstOfMonthIdx + 1}</div>
                         { currentMonthEvents[ key - firstOfMonthIdx + 1] ? <div className="event">{currentMonthEvents[key - firstOfMonthIdx + 1].name}</div>:<></>}
                     </div>)
-                } else if(key > 34 && (firstOfMonthIdx + monthLength) < 36){
                 } else {
                     return <div role="cell" key={key} className="cal-cel"></div>
                 }

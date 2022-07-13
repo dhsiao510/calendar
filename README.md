@@ -21,7 +21,7 @@ Thinking about potential expansion on features, I refactored and incorporated th
 
 Unit testing - test render of the Calendar, start day of the month, length of the month, days with an event
 UI - the current CSS is only focused on accurately displaying the Calendar, even when screen size is being changed. A lot of visual improvemnts can be applied
-Clean up - replace "any" type with actual type/custom types
+Clean up - some states may be consolidated and replace "any" type with actual type/custom types
 
 Thank you for taking the time and giving me the opportunity to learn through building this exercise!
 
