@@ -58,7 +58,7 @@ const Calendar = ({events}: any) => {
     }
 
     const renderEventDetail = (index: number) => {
-        if(firstOfMonthIdx) {
+        if(firstOfMonthIdx !== null) {
             if(currentMonthEvents[index - firstOfMonthIdx + 1]) {
                 setSelectEvent(currentMonthEvents[index - firstOfMonthIdx + 1])
               } else {
