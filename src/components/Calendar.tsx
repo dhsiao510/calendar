@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useMemo } from "react";
 import { format, getDay, startOfMonth, isSameMonth, add, sub, lastDayOfMonth } from "date-fns";
 import currentMonthsEventsToDayMap from "../utils/filterEventsForCurrentMonth";
 import EventDetail from "./EventDetails";
@@ -21,24 +21,20 @@ const initialSelectDayFormat = (stringDate?: string) => {
 const Calendar = ({events}: any) => {
     const calGrids = Array(42).fill(null);
     const weekdays: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const months: any ={1:'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug', 9:'Sep', 10: 'Oct', 11:'Nov', 12: 'Dec'}
+    const months: any = {1:'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun', 7: 'Jul', 8: 'Aug', 9:'Sep', 10: 'Oct', 11:'Nov', 12: 'Dec'}
     const [ selectDay, setSelectDay ]= useState(() => initialSelectDayFormat()) as any;
-    //const [ firstOfMonthIdx, setFirstOfMonthIdx] = useState(null) as any;
-    //const [ monthLength, setMonthLength ] = useState<null|number>(null);
+
     const [ sameMonth, setSameMonth] = useState<boolean>(true); 
     const [ selectEvent, setSelectEvent] = useState(null) as any;
     const [ today, setToday ] = useState(null) as any;
     const allEvents = useRef<Event[]>(events);
     const [ currentMonthEvents, setCurrentMonthEvents ] = useState([]) as any;
+    
 
     
     useEffect(() => {
-
-        //setFirstOfMonthIdx(getDay(startOfMonth(new Date(`${selectDay.month}/${selectDay.day}/${selectDay.year}`))));
         setCurrentMonthEvents(currentMonthsEventsToDayMap(allEvents.current,  months[Number(selectDay.month)], selectDay.year));
         setSameMonth(isSameMonth(new Date(`${selectDay.month}/${selectDay.day}/${selectDay.year}`), new Date()))
-        //const monthEnd = lastDayOfMonth(new Date(`${selectDay.month}/${selectDay.day}/${selectDay.year}`)).toString();
-        //setMonthLength(Number(monthEnd.split(' ')[2]));
         setToday(Number(format(new Date(), "dd")))
     
       }, [selectDay])
@@ -55,8 +51,10 @@ const Calendar = ({events}: any) => {
                         <div role="cell" className={sameMonth && (today + selectDay.firstOfMonthIdx - 1) === key ? "current": ""}>{key - selectDay.firstOfMonthIdx + 1}</div>
                         { currentMonthEvents[ key - selectDay.firstOfMonthIdx + 1] ? <div className="event">{currentMonthEvents[key - selectDay.firstOfMonthIdx + 1].name}</div>:<></>}
                     </div>)
+                } else if(36 > (selectDay.firstOfMonthIdx + selectDay.monthLength) && key > 34){
+                    return <div role="cell" key={key} className="cal-cel-white" onClick={() => console.log(key, selectDay.firstOfMonthIdx + selectDay.monthLength)}></div>
                 } else {
-                    return <div role="cell" key={key} className="cal-cel"></div>
+                    return <div role="cell" key={key} className="cal-cel" onClick={() => console.log(key)}></div>
                 }
             })
     }

@@ -54,6 +54,15 @@
   border-right: 0.5px solid white;
 }
 
+.cal-cel-white {
+  height: 15%;
+  width: 14%;
+  text-align: center;
+  border-left: 0.5px solid white;
+  border-right: 0.5px solid white;
+  background-color: white;
+}
+
 .event-detail {
   height: 100%;
   width: 25%;
