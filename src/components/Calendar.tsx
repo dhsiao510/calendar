@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useMemo } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { format, getDay, startOfMonth, isSameMonth, add, sub, lastDayOfMonth } from "date-fns";
 import currentMonthsEventsToDayMap from "../utils/filterEventsForCurrentMonth";
 import EventDetail from "./EventDetails";
@@ -45,13 +45,13 @@ const Calendar = ({events}: any) => {
                 if(key >= firstOfMonthIdx && key < (firstOfMonthIdx + monthLength)) {
                     return (
                     <div role="cell" key={key} className="cal-cel-days" onClick={() => renderEventDetail(key)}>
-                        <div role="cell" className={sameMonth && (today + firstOfMonthIdx - 1) === key ? "current": ""}>{key - firstOfMonthIdx + 1}</div>
+                        <div className={sameMonth && (today + firstOfMonthIdx - 1) === key ? "current": ""}>{key - firstOfMonthIdx + 1}</div>
                         { currentMonthEvents[ key - firstOfMonthIdx + 1] ? <div className="event">{currentMonthEvents[key - firstOfMonthIdx + 1].name}</div>:<></>}
                     </div>)
                 } else if(36 > (firstOfMonthIdx + monthLength) && key > 34){
-                    return <div role="cell" key={key} className="cal-cel-white" onClick={() => console.log(key, firstOfMonthIdx + monthLength)}></div>
+                    return <div role="cell" key={key} className="cal-cel-white"></div>
                 } else {
-                    return <div role="cell" key={key} className="cal-cel" onClick={() => console.log(key)}></div>
+                    return <div role="cell" key={key} className="cal-cel"></div>
                 }
             })
     }
@@ -77,7 +77,7 @@ const Calendar = ({events}: any) => {
     }
     
     return (
-        <div className="component-wrapper">
+        <div className="component-wrapper" data-testid="calendar-component">
             <div className="cal-wrapper">
                 <div className="header">
                     <button style={{height: "25%"}} onClick={() => prevMonth()}>{'<'}</button>
