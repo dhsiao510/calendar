@@ -3,6 +3,7 @@ import { format, getDay, startOfMonth, isSameMonth, add, sub, lastDayOfMonth } f
 import currentMonthsEventsToDayMap from "../utils/filterEventsForCurrentMonth";
 import EventDetail from "./EventDetails";
 import { Event } from "../types";
+import { useToggle } from "../hooks/useToggle";
 
 const initialSelectDayFormat = (stringDate?: string) => {
     stringDate = stringDate ? stringDate: format(new Date(), "MM/dd/yyyy");
@@ -25,6 +26,8 @@ const Calendar = ({events}: any) => {
     const { month, day, year, monthLength, firstOfMonthIdx } = selectDay;
 
     const [ sameMonth, setSameMonth] = useState<boolean>(true); 
+    const [showDetail, setShowDetail] = useToggle(false);
+
     const [ selectEvent, setSelectEvent] = useState(null) as any;
     const [ today, setToday ] = useState(null) as any;
     const allEvents = useRef<Event[]>(events);
@@ -59,8 +62,11 @@ const Calendar = ({events}: any) => {
     const renderEventDetail = (index: number) => {
         if(firstOfMonthIdx !== null) {
             if(currentMonthEvents[index - firstOfMonthIdx + 1]) {
+                if(selectEvent === null) setShowDetail();
+                if(selectEvent === currentMonthEvents[index - firstOfMonthIdx + 1]) setShowDetail();
                 setSelectEvent(currentMonthEvents[index - firstOfMonthIdx + 1])
               } else {
+                if(showDetail) setShowDetail()
                 setSelectEvent(null);
               }
         }
@@ -93,7 +99,7 @@ const Calendar = ({events}: any) => {
                     <div className="sample2">Event</div>
                 </div>
             </div>
-            { selectEvent === null ? <></>:<EventDetail selectEvent={selectEvent} /> }
+            { selectEvent === null || showDetail === false ? <></>:<EventDetail selectEvent={selectEvent} /> }
         </div>
     )
 }

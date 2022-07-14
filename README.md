@@ -3,7 +3,7 @@
 # To Run the App
 
 1. First time please cd into the directory and run `npm install`
-2. Upon completion, please run `npm run start`. The Calendar should be able opened on browser [http://localhost:3000]
+2. Upon completion, please run `npm run start`. The Calendar should be opened on browser [http://localhost:3000]
 3. Per requirement, the Calendar should render the current month by default
 4. The required visual indication of the current date would have a red background
 5. A day with an event would have the event name shown with an orange background
