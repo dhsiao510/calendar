@@ -1,7 +1,7 @@
 const EventDetail = ({selectEvent}: any) => {
 
     return (
-        <div className="event-detail">
+        <div className="event-detail" data-testid="detail">
             <h2>Event Detail</h2>
             <div><b>Event Name: </b>{selectEvent.name}</div>
             <div><b>Event Date: </b>{selectEvent.date}</div>
