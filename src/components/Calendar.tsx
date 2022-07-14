@@ -44,9 +44,9 @@ const Calendar = ({events}: any) => {
             return array.map((day: any, key:any) => {
                 if(key >= firstOfMonthIdx && key < (firstOfMonthIdx + monthLength)) {
                     return (
-                    <div role="cell" key={key} className="cal-cel-days" onClick={() => renderEventDetail(key)}>
+                    <div role="cell" data-testid="day" key={key} className="cal-cel-days" onClick={() => renderEventDetail(key)}>
                         <div className={sameMonth && (today + firstOfMonthIdx - 1) === key ? "current": ""}>{key - firstOfMonthIdx + 1}</div>
-                        { currentMonthEvents[ key - firstOfMonthIdx + 1] ? <div className="event">{currentMonthEvents[key - firstOfMonthIdx + 1].name}</div>:<></>}
+                        { currentMonthEvents[ key - firstOfMonthIdx + 1] ? <div className="event" data-testid="current-month-event">{currentMonthEvents[key - firstOfMonthIdx + 1].name}</div>:<></>}
                     </div>)
                 } else if(36 > (firstOfMonthIdx + monthLength) && key > 34){
                     return <div role="cell" key={key} className="cal-cel-white"></div>
